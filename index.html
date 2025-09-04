@@ -7,5 +7,21 @@
 </head>
 <body>
   <div id="container"></div>
+  <dialog id="dialog">
+    <form id="form">
+    <div>Book Title</div> <input type="text" name="Book-title" id="title" required>
+    <div>Author</div> <input type="text" name="Author" id="author" required>
+    <div>Pages</div> <input type="number" id="pages" name="" min="1" max="3000" step="1" id="pages" required>
+  <label class="toggle-switch">
+  <input type="checkbox" id="read">
+  <span class="slider"  >Already Read?</span>
+</label><br>
+  <button id="submit">Submit</button>
+    <button class="close">close</button>
+</dialog>
+    </form>
+
+<button class="show">Add New Book</button>
+
 </body>
-</html
+</html>
