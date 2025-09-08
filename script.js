@@ -8,6 +8,10 @@ function Book(title,author,pages,read){
 Book.prototype.info=function(){
     return this.title+" by "+this.author+", "+this.pages+" pages, "+(this.read ? "already read" : "not read yet");
 }
+Book.prototype.toggleRead=function(){
+  this.read = !this.read;
+  renderBooks();
+}
 let myLibrary=[];
 function addBookToLibrary(title,author,pages,read){
   const book = new Book(title,author,pages,read);
@@ -28,9 +32,12 @@ function renderBooks() {
   const text=(book.info());
   let removeButton = document.createElement('button');
   removeButton.textContent="Remove Book";
+  let toggleRead = document.createElement('button');
+  toggleRead.textContent="Toggle Read";
   list.innerText = `${text}`
   bookCard.appendChild(list)
   bookCard.appendChild(removeButton);
+  bookCard.appendChild(toggleRead);
   container.appendChild(bookCard);
   removeButton.addEventListener("click",function(){
     const card=this.parentElement;
@@ -38,6 +45,9 @@ function renderBooks() {
     myLibrary = myLibrary.filter(book => book.id !== bookId);
     renderBooks();
   })
+  toggleRead.addEventListener("click",function(){
+    book.toggleRead();
+  })  
   })
 }
 //dialogs and stuff
