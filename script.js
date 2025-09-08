@@ -8,7 +8,7 @@ function Book(title,author,pages,read){
 Book.prototype.info=function(){
     return this.title+" by "+this.author+", "+this.pages+" pages, "+(this.read ? "already read" : "not read yet");
 }
-const myLibrary=[];
+let myLibrary=[];
 function addBookToLibrary(title,author,pages,read){
   const book = new Book(title,author,pages,read);
   myLibrary.push(book);
@@ -19,17 +19,25 @@ addBookToLibrary("1984", "George Orwell", 328, true);
 addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, true);
 function renderBooks() {
   const container=document.querySelector('#container');
-  container.innerhtml="";
+  container.innerHTML="";
   myLibrary.forEach(book => {
   const bookCard = document.createElement("div")
   bookCard.className = "Books";
-  
+  bookCard.dataset.id = book.id;
   const list = document.createElement("p")
   const text=(book.info());
+  let removeButton = document.createElement('button');
+  removeButton.textContent="Remove Book";
   list.innerText = `${text}`
   bookCard.appendChild(list)
-  
+  bookCard.appendChild(removeButton);
   container.appendChild(bookCard);
+  removeButton.addEventListener("click",function(){
+    const card=this.parentElement;
+    const bookId=card.dataset.id;
+    myLibrary = myLibrary.filter(book => book.id !== bookId);
+    renderBooks();
+  })
   })
 }
 //dialogs and stuff
